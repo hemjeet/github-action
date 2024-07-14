@@ -12,24 +12,11 @@ model =load('model.pkl')
 def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
-    name = req.params.get('name')
-    if not name:
-        try:
-            req_body = req.get_json()
-            df = pd.DataFrame.from_dict(req_body, orient= 'index').T
-            pred = model.predict(df)[0]
+    req_body = req.get_json()
 
-            return func.HttpResponse(str(pred), status_code = 200)
+    logging.info('Loading model')
+    df = pd.DataFrame.from_dict(req_body, orient= 'index').T
+    pred = model.predict(df)[0]
 
-        except ValueError:
-            pass
-        else:
-            name = req_body.get('name')
-
-    if name:
-        return func.HttpResponse(f"Hello, {name}. This HTTP triggered function executed successfully.")
-    else:
-        return func.HttpResponse(
-             "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
-             status_code=200
-        )
+    response = {"Prediction": str(pred)}
+    return func.HttpResponse(response, status_code= 200)
