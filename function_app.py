@@ -2,7 +2,7 @@ import azure.functions as func
 import logging
 from joblib import *
 import pandas as pd 
-app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
+app = func.FunctionApp(http_auth_level = func.AuthLevel.ANONYMOUS)
 
 
 #---------load model--------#
