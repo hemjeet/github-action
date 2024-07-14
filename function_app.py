@@ -19,6 +19,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
     df = pd.DataFrame.from_dict(req_body, orient= 'index').T
     pred = model.predict(df)[0]
 
+    logging.info('Response...')
     dict_ = {"Prediction": str(pred)}
     response = json.dumps(dict_)
     return func.HttpResponse(response, status_code= 200)
