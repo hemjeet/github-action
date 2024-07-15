@@ -16,9 +16,23 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
     req_body = req.get_json()
     logging.info('Loading model')
     df = pd.DataFrame.from_dict(req_body, orient= 'index').T
-    pred = model.predict(df)[0]
+    try:
+        pred = model.predict(df)[0]
 
+<<<<<<< HEAD
     logging.info('Response added.')
     dict_ = {"Prediction": str(pred)}
     response = json.dumps(dict_)
     return func.HttpResponse(response, status_code = 200)
+=======
+        dict_ = {"Prediction": ''}
+        if pred == 0:
+            dict_['Prediction'] = 'Useful'
+        else:
+            dict_['Prediction'] = 'Not useful'
+
+        response = json.dumps(dict_)
+        return func.HttpResponse(response, status_code= 200)
+    except:
+        return func.HttpResponse('Some error occured !')
+>>>>>>> dev
