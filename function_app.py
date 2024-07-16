@@ -21,6 +21,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
         pred = model.predict(df)[0]
 
         dict_ = {"Prediction": ''}
+        
         if pred == 0:
             dict_['Prediction'] = 'Useful'
         else:
