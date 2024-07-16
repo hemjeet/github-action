@@ -9,7 +9,7 @@ app = func.FunctionApp(http_auth_level = func.AuthLevel.ANONYMOUS)
 #---------load model--------#
 model = load('model.pkl')
 
-@app.route(route="http_trigger")
+@app.route(route = "http_trigger")
 def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
@@ -21,6 +21,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
         pred = model.predict(df)[0]
 
         dict_ = {"Prediction": ''}
+        
         if pred == 0:
             dict_['Prediction'] = 'Useful'
         else:
