@@ -15,8 +15,6 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
     req_body = req.get_json()
-
-    logging.info('Loading model')
     df = pd.DataFrame.from_dict(req_body, orient= 'index').T
     try:
         pred = model.predict(df)[0]
