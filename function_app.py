@@ -18,6 +18,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
     df = pd.DataFrame.from_dict(req_body, orient= 'index').T
     try:
         pred = model.predict(df)[0]
+        logging.info('Model predicted !!')
 
         dict_ = {"Prediction": ''}
         
@@ -27,6 +28,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
             dict_['Prediction'] = 'Not useful'
 
         response = json.dumps(dict_)
+        logging.info('Response created !!')
         return func.HttpResponse(response, status_code= 200)
     except:
         return func.HttpResponse('Some error occured !')
