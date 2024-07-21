@@ -8,6 +8,7 @@ app = func.FunctionApp(http_auth_level = func.AuthLevel.ANONYMOUS)
 
 #---------load model--------#
 model = load('model.pkl')
+logging.info('Model loaded successfully !')
 
 @app.route(route = "http_trigger")
 def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
